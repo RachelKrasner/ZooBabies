@@ -1,0 +1,166 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zoo Baby Announcements</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap">
+<style>
+/* Layout: a nursery wall of bassinet "birth cards", each pinned with a ribbon in its baby's colour */
+:root{
+  --bg:#fdf6f8; --card:#ffffff; --ink:#3b2f3a; --muted:#7d6b78; --line:#efdfe6;
+  --pink:#f7b8cb; --blue:#a9d4f2; --mint:#b9e6cf; --butter:#fbe39a; --lilac:#d8c7f2;
+  --accent:#e2678f;
+  --cr:#c43d4b; --en:#e07b39; --vu:#c99a1c; --lc:#3f9a6b;
+  --display:"Baloo 2","Trebuchet MS",system-ui,sans-serif;
+  --body:"Nunito",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#211a22; --card:#2d2430; --ink:#f6eaf0; --muted:#bba9b6; --line:#43364a;
+  --pink:#8a4a60; --blue:#3f6684; --mint:#3d6b56; --butter:#7d6a2c; --lilac:#5d4c80;
+  --accent:#ff8fb1; --cr:#ff7b86; --en:#ffa76b; --vu:#f0c75a; --lc:#79d4a2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#211a22; --card:#2d2430; --ink:#f6eaf0; --muted:#bba9b6; --line:#43364a;
+  --pink:#8a4a60; --blue:#3f6684; --mint:#3d6b56; --butter:#7d6a2c; --lilac:#5d4c80;
+  --accent:#ff8fb1; --cr:#ff7b86; --en:#ffa76b; --vu:#f0c75a; --lc:#79d4a2; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;
+  background-image:radial-gradient(var(--line) 1.5px,transparent 1.5px);background-size:22px 22px}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:28px 48px}
+header{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between;margin-bottom:22px}
+.brand{display:flex;flex-direction:column;gap:2px;min-width:0}
+.eyebrow{font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(34px,6vw,56px);line-height:1;margin:4px 0;text-wrap:balance}
+h1 span{color:var(--accent)}
+.sub{color:var(--muted);max-width:56ch;margin:6px 0 0}
+.tally{display:flex;gap:10px;flex-wrap:wrap}
+.tally div{background:var(--card);border:2px dashed var(--line);border-radius:18px;padding:8px 14px;text-align:center}
+.tally b{display:block;font-family:var(--display);font-size:26px;line-height:1.1;font-variant-numeric:tabular-nums}
+.tally small{color:var(--muted);font-size:12px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 22px}
+.chip{font:inherit;font-weight:700;font-size:13px;border:2px solid var(--line);background:var(--card);color:var(--ink);
+  border-radius:999px;padding:6px 14px;cursor:pointer;transition:transform .15s}
+.chip:hover{transform:translateY(-2px)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.chip:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
+.card{position:relative;background:var(--card);border-radius:26px;padding:20px 20px 16px;min-width:0;
+  box-shadow:0 6px 0 var(--tint),0 10px 24px rgba(120,60,90,.08);border:2px solid var(--tint);
+  display:flex;flex-direction:column;gap:10px;transition:transform .2s}
+.card:hover{transform:rotate(-.6deg) translateY(-3px)}
+.ribbon{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--tint);color:var(--ink);
+  font-family:var(--display);font-weight:700;font-size:13px;padding:2px 14px;border-radius:999px;white-space:nowrap}
+.top{display:flex;gap:14px;align-items:center;margin-top:4px}
+.face{flex:none;width:72px;height:72px;border-radius:50%;background:var(--tint);display:grid;place-items:center;font-size:40px;
+  animation:bob 3.2s ease-in-out infinite}
+.card:nth-child(2n) .face{animation-delay:-1.4s}
+@keyframes bob{50%{transform:translateY(-4px) rotate(4deg)}}
+.name{font-family:var(--display);font-weight:800;font-size:28px;line-height:1.05;margin:0;overflow-wrap:anywhere}
+.name.tba{color:var(--muted);font-size:22px}
+.species{font-weight:700;color:var(--muted);margin:2px 0 0}
+dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:2px 0;font-size:14px;
+  border-top:2px dotted var(--line);border-bottom:2px dotted var(--line);padding-block:10px}
+dt{color:var(--muted);font-weight:600}
+dd{margin:0;font-weight:700;min-width:0}
+.fact{margin:0;font-size:14px}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-top:auto}
+.iucn{font-size:12px;font-weight:800;letter-spacing:.04em;border-radius:999px;padding:3px 10px;border:2px solid currentColor}
+.CR{color:var(--cr)}.EN{color:var(--en)}.VU{color:var(--vu)}.LC{color:var(--lc)}.NA{color:var(--muted)}
+a.src{color:var(--accent);font-weight:700;font-size:13px;text-decoration:none}
+a.src:hover{text-decoration:underline}
+.pinkT{--tint:var(--pink)}.blueT{--tint:var(--blue)}.mintT{--tint:var(--mint)}.butterT{--tint:var(--butter)}.lilacT{--tint:var(--lilac)}
+footer{margin-top:34px;background:var(--card);border-radius:22px;border:2px dashed var(--line);padding:16px 20px;font-size:14px;color:var(--muted)}
+footer b{color:var(--ink)}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:30px}
+@media (prefers-reduced-motion:reduce){.face{animation:none}.card,.chip{transition:none}}
+</style>
+</head><body>
+
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <span class="eyebrow">The zoo nursery · updated 5 Oct 2026</span>
+      <h1>Zoo Baby <span>Announcements</span></h1>
+      <p class="sub">Every new arrival at zoos around the world, with who they are, who their parents are, and the name they got (or are still waiting for).</p>
+    </div>
+    <div class="tally">
+      <div><b id="nBabies">11</b><small>babies</small></div>
+      <div><b id="nZoos">10</b><small>zoos</small></div>
+      <div><b id="nCountries">3</b><small>countries</small></div>
+    </div>
+  </header>
+
+  <div class="filters" role="group" aria-label="Filter babies">
+    <button class="chip" id="f-all" data-f="all" aria-pressed="true">All babies</button>
+    <button class="chip" id="f-named" data-f="named" aria-pressed="false">Has a name</button>
+    <button class="chip" id="f-tba" data-f="tba" aria-pressed="false">Name coming soon</button>
+    <button class="chip" id="f-rare" data-f="rare" aria-pressed="false">Endangered species</button>
+    <button class="chip" id="f-intl" data-f="intl" aria-pressed="false">Outside the US</button>
+  </div>
+
+  <main class="grid" id="grid"></main>
+
+  <footer>
+    <b>How this works:</b> a TinyFish <b>Search</b> finds fresh zoo birth news, <b>Fetch</b> pulls each full article, and a TinyFish <b>Agent</b> reads the page and fills in the birth card (species, name, sex, birth date, parents, conservation status). A TinyFish <b>Monitor</b> re-runs the search every morning at 8am London time so new babies keep showing up. Conservation status is the IUCN Red List category.
+  </footer>
+</div>
+
+<script>
+const babies=[
+ {name:"Barani & Malu",species:"Sumatran tiger",emoji:"🐯",tint:"butterT",zoo:"Fort Worth Zoo",place:"Texas, USA",intl:false,sex:"Twin girls",born:"1 Jul 2026",parents:"Ndari & Rakan",iucn:"CR",
+  fact:"The zoo's first-ever Sumatran tiger cubs. Barani means “brave” and Malu means “shy”; fewer than 650 of these tigers live in the wild.",url:"https://people.com/baby-sumatran-tiger-sisters-born-fort-worth-zoo-texas-12154207"},
+ {name:"Mac",species:"Reticulated giraffe",emoji:"🦒",tint:"blueT",zoo:"Fort Wayne Zoo",place:"Indiana, USA",intl:false,sex:"Boy",born:"10 Aug 2026",parents:"Faye & Ezeji",iucn:"EN",
+  fact:"Named by a local family after their beloved dog. He joins a herd of seven other giraffes.",url:"https://www.21alivenews.com/2026/10/02/family-selects-name-fort-wayne-zoos-baby-giraffe-honoring-familys-pet/"},
+ {name:"Gail",species:"Masai giraffe",emoji:"🦒",tint:"pinkT",zoo:"Brevard Zoo",place:"Florida, USA",intl:false,sex:"Girl",born:"14 Sep 2026",parents:"Kumi & Mapenzi",iucn:"EN",
+  fact:"Almost 6 feet tall and 119 lb at birth, and standing on her own just 30 minutes later.",url:"https://www.floridatoday.com/story/news/local/environment/2026/09/16/brevard-zoo-welcomes-a-new-baby-giraffe-named-gail/91790376007/"},
+ {name:"Stanley",species:"Giraffe",emoji:"🦒",tint:"mintT",zoo:"Toledo Zoo",place:"Ohio, USA",intl:false,sex:"Boy",born:"16 Sep 2026",parents:"Mom: Rae",iucn:"NA",
+  fact:"First baby for mom Rae after a 15-month pregnancy. He's already met herd-mates Eugene, Franklin, Charlotte, Michelle, Ellie and Lily.",url:"https://www.wtol.com/article/life/animals/baby-giraffes-name-revealed-by-toledo-zoo-stanley-calf-ohio/512-50e91847-c57b-40a0-b7b4-03ec1115e294"},
+ {name:"Sarka",species:"Snow leopard",emoji:"🐆",tint:"lilacT",zoo:"Bronx Zoo",place:"New York, USA",intl:false,sex:"Girl",born:"31 May 2026",parents:"Dari & Moutig",iucn:"VU",
+  fact:"Snow leopards are nicknamed the ghosts of the mountain for their camouflage coats. Only 5,000–7,000 remain in the wild.",url:"https://www.cbsnews.com/newyork/news/bronx-zoo-new-snow-leopard-cub-nyc/"},
+ {name:null,vote:"Public vote: Ravi, Tashi or Pabu",species:"Red panda",emoji:"🦊",tint:"pinkT",zoo:"Beardsley Zoo",place:"Connecticut, USA",intl:false,sex:"Boy",born:"24 Jun 2026",parents:"Ponya & Pilot",iucn:"EN",
+  fact:"The zoo's first-ever red panda cub. Pabu is Tibetan for “fluffball”. He rejoins his parents for public viewing this autumn.",url:"https://www.courant.com/2026/09/25/a-ct-zoo-celebrates-the-birth-of-one-of-the-worlds-rarest-animals-heres-how-to-see-it-up-close/"},
+ {name:null,vote:"Name vote coming on Dublin Zoo's socials",species:"Siamang gibbon",emoji:"🐒",tint:"mintT",zoo:"Dublin Zoo",place:"Dublin, Ireland",intl:true,sex:"Not known yet",born:"Announced 3 Oct 2026",parents:"Cahaya & Luca",iucn:"EN",
+  fact:"Big brother Sanuk is two. Both parents are genetically important to Europe's breeding programme for this species.",url:"https://www.nova.ie/dublin-zoo-welcomes-the-arrival-of-endangered-baby-gibbon/"},
+ {name:"Cassie",species:"Chimpanzee",emoji:"🐵",tint:"butterT",zoo:"Rockhampton Zoo → Monarto Safari Park",place:"Australia",intl:true,sex:"Girl",born:"June 2026",parents:"Mom: Sile",iucn:"EN",
+  fact:"Hand-raised by keepers after a broken leg, Cassie is travelling 2,000 km to join a new troop of 12 chimps in South Australia.",url:"https://www.indailysa.com.au/news/just-in/2026/10/02/baby-chimp-joins-new-troop"},
+ {name:null,vote:"Not named yet",species:"Guereza colobus monkey",emoji:"🐒",tint:"blueT",zoo:"Lincoln Park Zoo",place:"Chicago, USA",intl:false,sex:"Boy",born:"24 Sep 2026",parents:"Nola & Oku",iucn:"LC",
+  fact:"Colobus babies are born snow-white with pink faces so the troop can spot them, and turn black-and-white by about six months.",url:"https://www.discovermagazine.com/new-baby-colobus-monkey-at-lincoln-park-zoo-has-a-bright-pink-face-and-stark-white-fur-49763"},
+ {name:null,vote:"Not named yet",species:"Southern tamandua (lesser anteater)",emoji:"🐜",tint:"lilacT",zoo:"Denver Zoo",place:"Colorado, USA",intl:false,sex:"Not known yet",born:"7 Sep 2026",parents:"Winnie & Santiago",iucn:"LC",
+  fact:"Arrived almost a month early but healthy. Soon it will ride on mom's tail; tamanduas slurp up ants with long, barbed tongues.",url:"https://www.denverpost.com/2026/10/04/denver-zoo-anteater-southern-tamandua/"}
+];
+const IUCN={CR:"Critically Endangered",EN:"Endangered",VU:"Vulnerable",LC:"Least Concern",NA:"Status not listed"};
+const grid=document.getElementById("grid");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const count=b=>b.name&&b.name.includes("&")?2:1;
+document.getElementById("nBabies").textContent=babies.reduce((n,b)=>n+count(b),0);
+document.getElementById("nZoos").textContent=babies.length;
+document.getElementById("nCountries").textContent=new Set(babies.map(b=>b.place.split(", ").pop())).size;
+function render(f){
+  const list=babies.filter(b=>f==="all"||(f==="named"&&b.name)||(f==="tba"&&!b.name)||(f==="rare"&&["CR","EN"].includes(b.iucn))||(f==="intl"&&b.intl));
+  grid.innerHTML=list.length?list.map(b=>`
+  <article class="card ${b.tint}">
+    <span class="ribbon">${b.sex.startsWith("Girl")?"It's a girl!":b.sex.startsWith("Boy")?"It's a boy!":b.sex.startsWith("Twin")?"It's twins!":"Hello, baby!"}</span>
+    <div class="top">
+      <div class="face" aria-hidden="true">${b.emoji}</div>
+      <div style="min-width:0">
+        <h2 class="name ${b.name?"":"tba"}">${esc(b.name||"Baby "+b.species.split(" (")[0].split(" ").pop())}</h2>
+        <p class="species">${esc(b.species)}</p>
+      </div>
+    </div>
+    <dl>
+      <dt>Zoo</dt><dd>${esc(b.zoo)}</dd>
+      <dt>Where</dt><dd>${esc(b.place)}</dd>
+      <dt>Born</dt><dd>${esc(b.born)}</dd>
+      <dt>Parents</dt><dd>${esc(b.parents)}</dd>
+      ${b.name?"":`<dt>Name</dt><dd>${esc(b.vote)}</dd>`}
+    </dl>
+    <p class="fact">${esc(b.fact)}</p>
+    <div class="foot">
+      <span class="iucn ${b.iucn}">${IUCN[b.iucn]}</span>
+      <a class="src" href="${b.url}" target="_blank" rel="noopener">Read the news ↗</a>
+    </div>
+  </article>`).join(""):`<p class="empty">No babies match that filter yet.</p>`;
+}
+document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>{
+  document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===c));
+  render(c.dataset.f);
+}));
+render("all");
+</script>
+</body></html>
